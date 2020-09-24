@@ -1,0 +1,273 @@
+"""
+Copyright (c) 2019 - 2020 Qualcomm Technologies International, Ltd.
+
+General library build script
+"""
+
+from __future__ import print_function
+import os
+import fnmatch
+
+Import('p_env')
+
+# Builder for parse files
+p_env.Tool('genparse')
+
+# Set True to enable build of all library variants (otherwise just those
+# library variants used by the application are built)
+BUILD_ALL_LIBRARIES = False
+
+# Display debug messages only when SCRIPT_DEBUG is set True
+def debug(*args):
+    if p_env.get('SCRIPT_DEBUG'):
+        print(*args)
+
+def dos2unix(src):
+    """ Convert DOS style pathnames to the Unix style preferred by Make """
+    dst = src.split()
+    dst = [os.path.expandvars(f) for f in dst]
+    dst = [os.path.normpath(f) for f in dst]
+    dst = [os.path.splitdrive(f)[1] for f in dst]
+    dst = ' '.join(dst).replace('\\', '/')
+
+    return dst
+
+def filter_files(root, env):
+    """ Filter source files by extension """
+
+    # Extract a list of this library's files from 'source_files' relative
+    # to this library's folder ('root')
+    # Either a) Extract source files from project file
+    #env.Replace(lib_files = [os.path.relpath(f, root) for f in fnmatch.filter(env['source_files'], root + '/*')])
+    #c_files = fnmatch.filter(env['lib_files'], '*.c')
+    # Or b) Extract source files from folder structure on disc
+    env['lib_files']=[]
+    for base, dirs, files in os.walk(root):
+        env.Append(lib_files=[os.path.relpath(os.path.join(base, f), root).replace('\\', '/') for f in files])
+    c_files = fnmatch.filter(env['lib_files'], '*.c')
+    # Exclude <library>/main.c if present
+    try:
+        c_files.remove('main.c')
+    except:
+        pass
+
+    # Ignore files in subfolders, these are configuration specific
+    env.Replace(C_FILES = [t for (h, t) in (os.path.split(f) for f in c_files) if not h])
+    asm_files = fnmatch.filter(env['lib_files'], '*.asm')
+    # Ignore files in subfolders, these are configuration specific
+    env.Replace(ASM_FILES = [t for (h, t) in (os.path.split(f) for f in asm_files) if not h])
+
+# Library specific initialisation
+# Whether to convert warnings into errors
+WARNING_FREE = True
+
+# Library name
+LIB_NAME = os.path.basename(os.getcwd())
+
+# Folders
+LIB_DIR = p_env['inst_dir'] + '/lib/' + p_env['LIBRARY_VERSION'] + '/native'
+
+# Create library specific environment
+l_env = p_env.Clone()
+
+# Add the library folder to the include path
+l_env.Append(CPPPATH='.')
+
+# Cause warnings to generate errors if required
+if WARNING_FREE:
+    l_env['CFLAGS'] += ' -Werror'
+
+# Read in the Variant details
+l_env['CONFIG_FLAGS'] = dict()
+l_env['VARIANTS'] = ['default']
+if os.path.exists('SConscript.VARIANTS'):
+    # Usually the VARIANTS file simply assigns macro flags for each feature.
+    # Occasionally more complicated Make files are used, which need to be
+    # converted into SCons
+    l_env.SConscript('SConscript.VARIANTS', exports="l_env", must_exist=True)
+elif os.path.exists('VARIANTS'):
+    with open('VARIANTS', 'r') as varfile:
+        cnt = 0
+        for line in varfile:
+            cnt += 1
+            line = line.strip()
+            if line and line[0] != '#':
+                # The overwhelming majority of VARIANT files use := for
+                # assignment; a couple use =, one or two +=
+                for assign in [':=', '+=', '=']:
+                    if assign in line:
+                        elements = [l.strip() for l in line.split(assign)]
+                        break
+                else:
+                    raise ValueError('Expected :=, += or = in %s/VARIANTS, line %d' % (LIB_NAME, cnt))
+
+                try:
+                    (name, val) = elements
+                except ValueError:
+                    name = elements[0]
+                    val = ''
+
+                if name == 'VARIANTS':
+                    l_env['VARIANTS'] += val.split()
+                else:
+                    config = name[7:] if len(name) > 6 else 'default'
+                    val = val.split('#')[0].strip()
+                    l_env['CONFIG_FLAGS'][config] = [v[2:] for v in val.split()]
+
+# Filter source files according to extension
+filter_files(os.getcwd(), l_env)
+
+# Find this library's header files
+ALIAS = LIB_NAME  # Ultimately replace with library aliases
+l_env.Replace(hdr=p_env['profiles_inc_dir'] + '/' + ALIAS + '.h')
+l_env.Replace(dbi=[p_env['profiles_inc_dir'] + '/' + f for f in fnmatch.filter(l_env['lib_files'], '*_db.dbi')])
+l_env.Replace(uuids=[p_env['profiles_inc_dir'] + '/' + f for f in fnmatch.filter(l_env['lib_files'], '*_uuids.h')])
+l_env.Replace(no_ble=[p_env['profiles_inc_dir'] + '/' + f for f in fnmatch.filter(l_env['lib_files'], '*_no_ble.h')])
+l_env.Replace(msg_host=[p_env['profiles_inc_dir'] + '/' + f for f in fnmatch.filter(l_env['lib_files'], '*_msg_host.h')])
+l_env.Replace(par=fnmatch.filter(l_env['lib_files'], '*.parse'))
+l_env.Replace(helpers=fnmatch.filter(l_env['lib_files'], 'helpers/*'))
+
+# Remove the shim files where not requested
+if p_env['DISABLE_SHIM']:
+    try:
+        l_env['C_FILES'].remove(LIB_NAME + '_shim.c')
+    except ValueError:
+        pass
+
+# Header rules
+l_env.Command(l_env['hdr'], os.path.basename(l_env['hdr']),
+              [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+
+for f in l_env['no_ble']:
+    l_env.Command(f, os.path.basename(f),
+                  [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+
+for f in l_env['msg_host']:
+    l_env.Command(f, os.path.basename(f),
+                  [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+
+for f in l_env['dbi']:
+    l_env.Command(f, os.path.basename(f),
+                  [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+
+for f in l_env['uuids']:
+    l_env.Command(f, os.path.basename(f),
+                  [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+
+if not p_env['DISABLE_SHIM']:
+    src = LIB_NAME + '_shim.h'
+    if src in l_env['lib_files']:
+        tgt = p_env['profiles_inc_dir'] + '/' + src
+        l_env.Command(tgt, src,
+                      [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+# Helper rules
+for f in l_env['helpers']:
+    target = '/'.join([p_env['profiles_inc_dir'], p_env['LIBRARY_VERSION'],
+                      'helpers', LIB_NAME, os.path.basename(f)])
+    l_env.Command(target, f,
+                  [Copy('$TARGET', '$SOURCE'), Chmod('$TARGET', 0o666)])
+
+# Update source file list with feature specific sources where they exist
+for f in p_env['CONFIG_FEATURES']:
+    debug("Process feature:", f)
+    # Add feature specific compiler flags
+    try:
+        l_env.Append(CPPDEFINES = l_env['CONFIG_FLAGS'][f])
+    except KeyError:
+        pass
+
+    # Add feature specific source files
+    CONFIG_C_FILES = fnmatch.filter(l_env['lib_files'], f + '/*.c')
+    CONFIG_ASM_FILES = fnmatch.filter(l_env['lib_files'], f + '/*.asm')
+
+    for file in CONFIG_C_FILES:
+        src = os.path.basename(file)
+        if src in l_env['C_FILES']:
+            l_env['C_FILES'].remove(src)
+        l_env['C_FILES'].append(file)
+
+    for file in CONFIG_ASM_FILES:
+        src = os.path.basename(file)
+        if src in l_env['ASM_FILES']:
+            l_env['ASM_FILES'].remove(src)
+        l_env['ASM_FILES'].append(file)
+
+    # Add this configuration folder to the include path if required
+    if CONFIG_C_FILES or CONFIG_ASM_FILES:
+        l_env.Append(CPPPATH=f)
+
+# Process each variant
+v_env = dict()
+for v in l_env['VARIANTS']:
+    debug('Processing variant:', v)
+    # Create a unique environment for the variant
+    v_env[v] = l_env.Clone()
+
+    # Add variant specific compiler flags
+    try:
+        v_env[v].Append(CPPDEFINES = l_env['CONFIG_FLAGS'][v])
+    except KeyError:
+        pass
+
+    # Create database header file
+    for f in v_env[v]['dbi']:
+        src = os.path.basename(f)
+        tgt = v + '/' + p_env['LIBRARY_VERSION'] + '/' + src.replace('.dbi', '.h')
+        v_env[v].DbiObject(tgt, src)
+        v_env[v].AppendUnique(CPPPATH=os.path.dirname(tgt))
+
+    # Setup paths for the build
+    v_env[v]['SRC_DIR'] = '.'
+    path = [v, p_env['LIBRARY_VERSION'], 'native']
+    if p_env['BUILDOUTPUT_PATH']:
+        path = [p_env['BUILDOUTPUT_PATH'], LIB_NAME] + path
+    v_env[v]['BUILD_DIR'] = '/'.join(path)
+
+    # Ensure object files are created separately from source files, and
+    # don't create copies of the source files in the build folder
+    v_env[v].VariantDir(v_env[v]['BUILD_DIR'], v_env[v]['SRC_DIR'], duplicate=0)
+    v_env[v]['C_FILES'] = [v_env[v]['BUILD_DIR'] + '/' + s for s in v_env[v]['C_FILES']]
+    v_env[v]['ASM_FILES'] = [v_env[v]['BUILD_DIR'] + '/' + s for s in v_env[v]['ASM_FILES']]
+
+    # Output library file
+    suffix = '_' + v if v != 'default' else ''
+    v_env[v]['OUTPUT_LIB'] = LIB_DIR + '/lib' + LIB_NAME + suffix + '.a'
+
+    for f in v_env[v]['par']:
+        # Convert .parse to .c/.h
+        src = v_env[v].ParseObject(v_env[v]['BUILD_DIR'] + '/' + f)[0]
+        # Add .c file to list of files to build
+        v_env[v].AppendUnique(C_FILES=str(src))
+        # Add location of .h file to include path list
+        v_env[v].AppendUnique(CPPPATH=os.path.dirname(str(src)))
+
+    # Assembler objects require special handling because the Library builder
+    # only understands C, C++, D or Fortran sources.
+    v_env[v]['ASM_OBJECTS'] = []
+    for src in v_env[v]['ASM_FILES']:
+        v_env[v]['ASM_OBJECTS'].extend(v_env[v].AsmObject(src))
+
+    if BUILD_ALL_LIBRARIES:
+        # Build all library variants
+        # (These defaults only required if building separately)
+        if v_env[v]['C_FILES'] + v_env[v]['ASM_OBJECTS']:
+            # Assign the default target so that not everything gets built by default
+            v_env[v].Default(v_env[v]['OUTPUT_LIB'])
+
+            # Update indirect dependencies
+            v_env[v].Depends(v_env[v]['C_FILES'], l_env['depends'])
+        else:
+            # If there's no source, build just the dependencies
+            # (e.g. just copy the header files to the installed_libs folder)
+            v_env[v].Default(l_env['depends'])
+    else:
+        # Update indirect dependencies
+        if v_env[v]['C_FILES']:
+            v_env[v].Depends(v_env[v]['C_FILES'], l_env['depends'])
+
+    # Build library
+    v_env[v].Library(target = v_env[v]['OUTPUT_LIB'],
+                     source = v_env[v]['C_FILES'] + v_env[v]['ASM_OBJECTS'])
+
+    # Clean library, intermediate files, and empty build folders
+    v_env[v].Clean(v_env[v]['OUTPUT_LIB'], [v])

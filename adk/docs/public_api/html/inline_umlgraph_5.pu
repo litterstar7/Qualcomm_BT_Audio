@@ -1,0 +1,65 @@
+@startuml
+
+
+participant "Application" as app
+participant "Device Test Service" as dts
+participant "Connection Library" as conn
+participant "Pairing" as pairing
+participant "SPP Server" as spps
+
+app -> dts : DeviceTestService_Start()
+dts -> spps : SppStartService
+dts <- spps : SPPS_START_SERVICE_CFM\nsuccess
+dts -> pairing : Pairing_Pair()
+note right: When pairing known devices can also connect to us
+alt
+dts <- pairing : PAIRING_CFM\nsuccess
+note right : Should then proceed with connection
+else pairing failed
+dts <- pairing : PAIRING_CFM\nAuthenticationFailed, NoLinkKey, Timeout, Unknown, Failed
+dts -> pairing : Pairing_Pair()
+else connection
+dts <- pairing  : PAIRING_CFM\nstopped
+note right : Should then proceed with connection
+end
+
+dts <- spps : SPP_CONNECT_IND
+dts -> spps : SppConnectResponse()
+
+dts <- spps : SPP_SERVER_CONNECT_CFM\nsuccess
+
+loop until session closed
+dts <- spps : SPPS_MESSAGE_MORE_DATA
+app <- dts  : mapped function
+app -> dts  : function response/OK
+note right : response sent to the Sink for the session
+end
+
+alt normal disconnect (no reboot)
+dts <- spps : SPPS_MESSAGE_MORE_DATA
+app <- dts  : DeviceTestServiceCommand_HandleDtsEndTesting
+app -> dts  : OK
+dts -> spps : SppDisconnectRequest()
+dts <- spps : SPPS_DISCONNECT_CFM
+dts <- conn : CON_MANAGER_TP_DISCONNECT_IND
+app <- dts  : DEVICE_TEST_SERVICE_ENDED
+
+else connection drop
+group spp
+    dts <- spps : SPPS_DISCONNECT_IND
+    dts -> spps : SppStartService
+end
+group link
+    dts <- conn : CON_MANAGER_TP_DISCONNECT_IND
+    dts -> pairing : Pairing_Pair()
+    note right : already paired devices can reconnect at this point
+end
+
+else reset after test
+dts <- spps : SPPS_MESSAGE_MORE_DATA
+app <- dts  : DeviceTestServiceCommand_HandleDtsEndTesting
+app -> dts  : OK
+note right : Device reboots
+end
+
+@enduml

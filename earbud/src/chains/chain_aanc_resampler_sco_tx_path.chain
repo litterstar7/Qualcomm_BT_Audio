@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2020 Qualcomm Technologies International, Ltd.-->
+<!--Chain for AEC reference-->
+
+<chain name="CHAIN_AANC_RESAMPLER_SCO_TX_PATH" id="1" generate_operator_roles_enum="False" generate_endpoint_roles_enum="False">
+
+    <include_header name="../earbud_cap_ids.h"/>
+    <include_header name="kymera_chain_roles.h"/>
+	
+	<operator name="OPR_AANC_DOWN_SAMPLE" id="CAP_ID_IIR_RESAMPLER">
+        <sink name="AEC_REF_16KIN" terminal="0"/>
+		<sink name="16KIN1" terminal="1"/>
+		<sink name="16KIN2" terminal="2"/>
+        <source name="AEC_REF_8KOUT" terminal="0"/>
+		<source name="8KOUT1" terminal="1"/>
+		<source name="8KOUT2" terminal="2"/>
+    </operator>
+    
+	<input sink="OPR_AANC_DOWN_SAMPLE.16KIN1" role="EPR_IIR_16K_IN1"/>
+	<input sink="OPR_AANC_DOWN_SAMPLE.16KIN2" role="EPR_IIR_16K_IN2"/>
+	<input sink="OPR_AANC_DOWN_SAMPLE.AEC_REF_16KIN" role="EPR_IIR_AEC_REF_16K_IN"/>
+	<output source="OPR_AANC_DOWN_SAMPLE.8KOUT1" role="EPR_IIR_8K_OUT1"/>
+	<output source="OPR_AANC_DOWN_SAMPLE.8KOUT2" role="EPR_IIR_8K_OUT2"/>
+	<output source="OPR_AANC_DOWN_SAMPLE.AEC_REF_8KOUT" role="EPR_IIR_AEC_REF_8K_OUT"/>
+		    
+</chain>

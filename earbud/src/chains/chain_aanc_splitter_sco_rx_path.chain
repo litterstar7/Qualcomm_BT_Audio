@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2020 Qualcomm Technologies International, Ltd.-->
+<!--Splitter Chain for AANC use case-->
+
+<chain name="CHAIN_AANC_SPLITTER_SCO_RX_PATH" id="1" generate_operator_roles_enum="False" generate_endpoint_roles_enum="False">
+
+    <include_header name="../earbud_cap_ids.h"/>
+    <include_header name="kymera_chain_roles.h"/>
+
+	<operator name="OPR_AANC_SPLT_SCO_RX" id="CAP_ID_SPLITTER" priority="high">
+        <sink name="IN" terminal="0"/>
+        <source name="OUT1" terminal="0"/>
+        <source name="OUT2" terminal="1"/>
+    </operator>
+	
+    
+    <input sink="OPR_AANC_SPLT_SCO_RX.IN" role="EPR_SPLT_SCO_IN"/>
+    <output source="OPR_AANC_SPLT_SCO_RX.OUT1" role="EPR_SPLT_AEC_OUT"/>
+    <output source="OPR_AANC_SPLT_SCO_RX.OUT2" role="EPR_SPLT_OUT_ANC_VAD"/>
+		    
+</chain>

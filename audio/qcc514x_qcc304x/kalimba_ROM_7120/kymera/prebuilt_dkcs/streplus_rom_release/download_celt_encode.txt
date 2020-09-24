@@ -1,0 +1,3 @@
+Download Capability BUILD ID = 12424
+ELF File ID = 0x8054F0DF
+Base Build ID = 12418

@@ -1,0 +1,6 @@
+file=audio3
+
+Codec0UseClassABAmplifier = true
+Codec0OutAmpQualityMode = true
+AncEnableDelay = 500
+

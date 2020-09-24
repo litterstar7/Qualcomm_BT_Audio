@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['gaia_5fdata_5ftransfer_5finternal_5fget_5freq_5ft',['GAIA_DATA_TRANSFER_INTERNAL_GET_REQ_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___g_e_t___r_e_q___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fget_5frsp_5ft',['GAIA_DATA_TRANSFER_INTERNAL_GET_RSP_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___g_e_t___r_s_p___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fsession_5fclose_5fcfm_5ft',['GAIA_DATA_TRANSFER_INTERNAL_SESSION_CLOSE_CFM_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___s_e_s_s_i_o_n___c_l_o_s_e___c_f_m___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fsession_5fclose_5find_5ft',['GAIA_DATA_TRANSFER_INTERNAL_SESSION_CLOSE_IND_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___s_e_s_s_i_o_n___c_l_o_s_e___i_n_d___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fsession_5fstart_5fcfm_5ft',['GAIA_DATA_TRANSFER_INTERNAL_SESSION_START_CFM_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___s_e_s_s_i_o_n___s_t_a_r_t___c_f_m___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fsession_5fstart_5find_5ft',['GAIA_DATA_TRANSFER_INTERNAL_SESSION_START_IND_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___s_e_s_s_i_o_n___s_t_a_r_t___i_n_d___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fset_5freq_5ft',['GAIA_DATA_TRANSFER_INTERNAL_SET_REQ_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___s_e_t___r_e_q___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5fset_5frsp_5ft',['GAIA_DATA_TRANSFER_INTERNAL_SET_RSP_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___s_e_t___r_s_p___t.html',1,'']]],
+  ['gaia_5fdata_5ftransfer_5finternal_5funknown_5fresponse_5ft',['GAIA_DATA_TRANSFER_INTERNAL_UNKNOWN_RESPONSE_T',['../struct_g_a_i_a___d_a_t_a___t_r_a_n_s_f_e_r___i_n_t_e_r_n_a_l___u_n_k_n_o_w_n___r_e_s_p_o_n_s_e___t.html',1,'']]],
+  ['gaiadisconnectdata',['gaiaDisconnectData',['../structgaia_disconnect_data.html',1,'']]],
+  ['gaiataskdata',['gaiaTaskData',['../structgaia_task_data.html',1,'']]],
+  ['gatt_5fclient_5fservice_5ft',['gatt_client_service_t',['../structgatt__client__service__t.html',1,'']]],
+  ['gatt_5fconnect_5fobserver_5fcallback_5ft',['gatt_connect_observer_callback_t',['../structgatt__connect__observer__callback__t.html',1,'']]],
+  ['gattserverbatteryclientdata',['gattServerBatteryClientData',['../structgatt_server_battery_client_data.html',1,'']]],
+  ['gattserverbatterydata',['gattServerBatteryData',['../structgatt_server_battery_data.html',1,'']]],
+  ['gattserverbatteryinstanceinfo',['gattServerBatteryInstanceInfo',['../structgatt_server_battery_instance_info.html',1,'']]],
+  ['gattserverdeviceinfodata',['gattServerDeviceInfoData',['../structgatt_server_device_info_data.html',1,'']]],
+  ['gattservergattclientdata',['gattServerGattClientData',['../structgatt_server_gatt_client_data.html',1,'']]],
+  ['gattservergattdata',['gattServerGattData',['../structgatt_server_gatt_data.html',1,'']]],
+  ['gatttaskdata',['gattTaskData',['../structgatt_task_data.html',1,'']]],
+  ['goal_5fentry_5ft',['goal_entry_t',['../structgoal__entry__t.html',1,'']]],
+  ['goal_5fset_5finit_5fparams_5ft',['goal_set_init_params_t',['../structgoal__set__init__params__t.html',1,'']]]
+];

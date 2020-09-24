@@ -1,0 +1,11 @@
+@startuml
+
+    object OPR_AANC_SPLT_SCO_RX
+    OPR_AANC_SPLT_SCO_RX : id = CAP_ID_SPLITTER
+    object EPR_SPLT_SCO_IN #lightgreen
+    OPR_AANC_SPLT_SCO_RX "IN(0)" <-- EPR_SPLT_SCO_IN
+    object EPR_SPLT_AEC_OUT #lightblue
+    EPR_SPLT_AEC_OUT <-- "OUT1(0)" OPR_AANC_SPLT_SCO_RX
+    object EPR_SPLT_OUT_ANC_VAD #lightblue
+    EPR_SPLT_OUT_ANC_VAD <-- "OUT2(1)" OPR_AANC_SPLT_SCO_RX
+@enduml

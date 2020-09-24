@@ -1,0 +1,17 @@
+@startuml
+
+    object OPR_AANC_DOWN_SAMPLE
+    OPR_AANC_DOWN_SAMPLE : id = CAP_ID_IIR_RESAMPLER
+    object EPR_IIR_16K_IN1 #lightgreen
+    OPR_AANC_DOWN_SAMPLE "16KIN1(1)" <-- EPR_IIR_16K_IN1
+    object EPR_IIR_16K_IN2 #lightgreen
+    OPR_AANC_DOWN_SAMPLE "16KIN2(2)" <-- EPR_IIR_16K_IN2
+    object EPR_IIR_AEC_REF_16K_IN #lightgreen
+    OPR_AANC_DOWN_SAMPLE "AEC_REF_16KIN(0)" <-- EPR_IIR_AEC_REF_16K_IN
+    object EPR_IIR_8K_OUT1 #lightblue
+    EPR_IIR_8K_OUT1 <-- "8KOUT1(1)" OPR_AANC_DOWN_SAMPLE
+    object EPR_IIR_8K_OUT2 #lightblue
+    EPR_IIR_8K_OUT2 <-- "8KOUT2(2)" OPR_AANC_DOWN_SAMPLE
+    object EPR_IIR_AEC_REF_8K_OUT #lightblue
+    EPR_IIR_AEC_REF_8K_OUT <-- "AEC_REF_8KOUT(0)" OPR_AANC_DOWN_SAMPLE
+@enduml

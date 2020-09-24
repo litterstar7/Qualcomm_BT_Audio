@@ -1,0 +1,24 @@
+@startuml
+
+
+    [*] -down-> NULL
+    NULL -down-> INITIALISING : Pairing_Init()
+    INITIALISING : Registering EIR data
+    INITIALISING -down-> IDLE : EIR registration complete
+    IDLE : Page and Inquiry scan disabled
+    
+    state DevicePairing {
+        DevicePairing : Page scan enabled
+        IDLE -down-> DISCOVERABLE : INTERNAL_PAIR_REQ
+        IDLE -down-> PENDING_AUTHENTICATION : INTERNAL_PAIR_REQ(known addr)
+        DISCOVERABLE : Inquiry scan enabled
+        DISCOVERABLE : Awaiting device connection
+        DISCOVERABLE -up-> IDLE : PAIR_CFM(timeout/cancelled)
+        DISCOVERABLE -down-> PENDING_AUTHENTICATION : Start authentication
+        PENDING_AUTHENTICATION : Pairing in progress
+        PENDING_AUTHENTICATION --> IDLE : PAIR_CFM(success/failed)
+    }
+
+    footer Note that PAIRING_STATE_ prefix dropped from states and PAIRING_ prefix dropped from messages.
+
+@enduml

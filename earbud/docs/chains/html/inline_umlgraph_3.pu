@@ -1,0 +1,11 @@
+@startuml
+
+    object OPR_AANC
+    OPR_AANC : id = EB_CAP_ID_ADAPTIVE_ANC_REF
+    object EPR_AANC_VOICE_DECTECTION_IN #lightgreen
+    OPR_AANC "PLAYBACK_IN(0)" <-- EPR_AANC_VOICE_DECTECTION_IN
+    object EPR_AANC_FF_MIC_IN #lightgreen
+    OPR_AANC "EXT_FF_MIC(3)" <-- EPR_AANC_FF_MIC_IN
+    object EPR_AANC_ERR_MIC_IN #lightgreen
+    OPR_AANC "INT_ERR_MIC(2)" <-- EPR_AANC_ERR_MIC_IN
+@enduml

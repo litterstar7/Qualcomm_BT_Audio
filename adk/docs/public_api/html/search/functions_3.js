@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['fastpair_5fbatterygetdata',['fastPair_BatteryGetData',['../fast__pair__battery__notifications_8c.html#a3bac9c737832ae8dc023b5ab38c190b5',1,'fastPair_BatteryGetData(void):&#160;fast_pair_battery_notifications.c'],['../fast__pair__battery__notifications_8h.html#a3bac9c737832ae8dc023b5ab38c190b5',1,'fastPair_BatteryGetData(void):&#160;fast_pair_battery_notifications.c']]],
+  ['fastpair_5fbatteryhandlecaselidstate',['fastPair_BatteryHandleCaseLidState',['../fast__pair__battery__notifications_8c.html#a2ebe79994158a86e390ad5758642ac30',1,'fastPair_BatteryHandleCaseLidState(const CASE_LID_STATE_T *cls):&#160;fast_pair_battery_notifications.c'],['../fast__pair__battery__notifications_8h.html#a2ebe79994158a86e390ad5758642ac30',1,'fastPair_BatteryHandleCaseLidState(const CASE_LID_STATE_T *cls):&#160;fast_pair_battery_notifications.c']]],
+  ['fastpair_5fbatteryhandlecasepowerstate',['fastPair_BatteryHandleCasePowerState',['../fast__pair__battery__notifications_8c.html#a600f16650beaff220b533232fd397706',1,'fastPair_BatteryHandleCasePowerState(const CASE_POWER_STATE_T *cps):&#160;fast_pair_battery_notifications.c'],['../fast__pair__battery__notifications_8h.html#a600f16650beaff220b533232fd397706',1,'fastPair_BatteryHandleCasePowerState(const CASE_POWER_STATE_T *cps):&#160;fast_pair_battery_notifications.c']]]
+];

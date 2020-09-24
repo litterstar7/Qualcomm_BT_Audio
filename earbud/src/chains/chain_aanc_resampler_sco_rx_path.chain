@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2020 Qualcomm Technologies International, Ltd.-->
+<!--Chain for AANC SCO RX reference-->
+
+<chain name="CHAIN_AANC_RESAMPLER_SCO_RX_PATH" id="1" generate_operator_roles_enum="False" generate_endpoint_roles_enum="False">
+
+    <include_header name="../earbud_cap_ids.h"/>
+    <include_header name="kymera_chain_roles.h"/>	
+
+    <operator name="OPR_AANC_UP_SAMPLE" id="CAP_ID_IIR_RESAMPLER">
+    <sink name="IIR_RX_8K_IN1" terminal="0"/>
+    <source name="IIR_RX_16K_OUT1" terminal="0"/>
+    </operator>
+    
+	<input sink="OPR_AANC_UP_SAMPLE.IIR_RX_8K_IN1" role="EPR_IIR_RX_8K_IN1"/>
+	<output source="OPR_AANC_UP_SAMPLE.IIR_RX_16K_OUT1" role="EPR_IIR_RX_16K_OUT1"/>
+		    
+</chain>

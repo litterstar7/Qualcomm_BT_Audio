@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['halflife_5fms',['halfLife_ms',['../structhdma__thresholds__t.html#a3856b714f629b7a0ec486f3edf2f22b4',1,'hdma_thresholds_t']]],
+  ['hall_5feffect_5fsensor_5fpio',['hall_effect_sensor_pio',['../structhall_effect_task_data.html#a7b3e056b7e079d6bb6f9d4ebb502d8fc',1,'hallEffectTaskData']]],
+  ['halleffect_5frunning',['halleffect_running',['../group__device__test__service.html#ga64e6415803f46ea420c980c374958fba',1,'@24::halleffect_running()'],['../group__device__test__service.html#ga64e6415803f46ea420c980c374958fba',1,'halleffect_running():&#160;device_test_service_commands_sensors.c']]],
+  ['handle',['handle',['../structaccel_task_data.html#aa01899b6fc7eb0a4baef266f2d61d7d9',1,'accelTaskData::handle()'],['../structproximity_task_data.html#aa01899b6fc7eb0a4baef266f2d61d7d9',1,'proximityTaskData::handle()']]],
+  ['handover_5finfo',['handover_info',['../structtws_topology_task_data.html#a45bd5c5ddafca02aba1cb02a9a04ea29',1,'twsTopologyTaskData']]],
+  ['handset_5faddr',['handset_addr',['../structhandset__service__state__machine__t.html#abde3a699231ebf9cbde8b2871cc5d479',1,'handset_service_state_machine_t::handset_addr()'],['../structstate__proxy__data__t.html#abde3a699231ebf9cbde8b2871cc5d479',1,'state_proxy_data_t::handset_addr()']]],
+  ['handset_5fauthorise_5fcallback',['handset_authorise_callback',['../structcon_manager_task_data.html#a9b12764a599c4b12bbc80ac796b371e4',1,'conManagerTaskData']]],
+  ['handset_5fauthorise_5flock',['handset_authorise_lock',['../structcon_manager_task_data.html#a8e22d77b62a29d565a182ec0f8a71892',1,'conManagerTaskData']]],
+  ['handset_5fconnect_5fallowed',['handset_connect_allowed',['../structcon_manager_task_data.html#aa140872e9c4880415e70e3f82ea22b9d',1,'conManagerTaskData']]],
+  ['handset_5fconnected',['handset_connected',['../structpeer__find__role__scoring__t.html#a987347334631d8f0482f9287a4e0a282',1,'peer_find_role_scoring_t']]],
+  ['handset_5fconnections_5fallowed',['handset_connections_allowed',['../structdevice__test__service__data__t.html#a84cc264f0dacef71eeaa892b3335aaae',1,'device_test_service_data_t']]],
+  ['handset_5fdevice',['handset_device',['../structhandset__service__state__machine__t.html#af9c31af9af9526e641a1576c53f23f80',1,'handset_service_state_machine_t']]],
+  ['handset_5fmode',['handset_mode',['../structmirror__profile__task__data__t.html#a684db6ea207161dbc315d418e2f6049f',1,'mirror_profile_task_data_t']]],
+  ['handset_5fprofiles_5fto_5fretain',['handset_profiles_to_retain',['../structtws_topology_task_data.html#a12423c3c5900ecb7e3cdb36e6cd9a5ca',1,'twsTopologyTaskData']]],
+  ['handset_5fto_5fpair_5fwith_5fbdaddr',['handset_to_pair_with_bdaddr',['../structcon_manager_task_data.html#a43fa6203cc570751569d3300a6c107da',1,'conManagerTaskData']]],
+  ['hardware',['hardware',['../structapp_kymera_hardware_output.html#a42ef5abebf03eb05a0cac628c82cb847',1,'appKymeraHardwareOutput']]],
+  ['has_5fhandset_5fpairing',['has_handset_pairing',['../structstate__proxy__data__flags__t.html#af26edf5a1f0ac632bf5ef8dbd83f2e95',1,'state_proxy_data_flags_t']]],
+  ['hash',['hash',['../structkymera_task_data.html#a333b7ff8a23ce38f6329e27403bdb573',1,'kymeraTaskData']]],
+  ['hdma_5fcreated',['hdma_created',['../structtws_topology_task_data.html#a1cbc44744bc7c046fbfb3314e15ce745',1,'twsTopologyTaskData']]],
+  ['hfp_5fconnected',['hfp_connected',['../structstate__proxy__data__flags__t.html#a0f118247a0df9dc3bdcd3490c0bf203e',1,'state_proxy_data_flags_t']]],
+  ['hfp_5frole',['hfp_role',['../structlp_task_data.html#ac57d8ba813c0ba9f4789066c056f69fe',1,'lpTaskData']]],
+  ['high',['high',['../structhdma__urgency__thresholds__t.html#a577f212c4c7c1fa4433a988ae462fab5',1,'hdma_urgency_thresholds_t']]],
+  ['hw_5fchannel',['hw_channel',['../struct_k_y_m_e_r_a___i_n_t_e_r_n_a_l___a_a_n_c___e_n_a_b_l_e___t.html#a37d8fd789f316c33f600789caceb4873',1,'KYMERA_INTERNAL_AANC_ENABLE_T']]],
+  ['hysteresis',['hysteresis',['../structbattery_registration_form.html#aaca14aa4a4e2448f66f2857cd522f676',1,'batteryRegistrationForm']]]
+];

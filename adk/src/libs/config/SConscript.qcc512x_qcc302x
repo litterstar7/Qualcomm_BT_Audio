@@ -1,0 +1,17 @@
+import os
+
+Import('p_env')
+
+# Pull in the Kymera build configuration
+if os.path.exists('SConscript.hydracore'):
+    p_env.SConscript('SConscript.hydracore', exports='p_env', must_exist=True)
+
+p_env.Append(CONFIG_DIRS_FILTER=['nfc_api', 'nfc_cl'])
+# audio_input_i2s csr_i2s_audio_plugin audio_output csr_cvc_common_plugin
+
+try:
+    p_env['CONFIG_DIRS_FILTER'].remove('anc')
+except ValueError:
+    pass
+
+p_env.Append(CONFIG_FEATURES=['CONFIG_KEY_MANIPULATION'])

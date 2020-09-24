@@ -1,0 +1,9 @@
+@startuml
+
+    object OPR_AANC_UP_SAMPLE
+    OPR_AANC_UP_SAMPLE : id = CAP_ID_IIR_RESAMPLER
+    object EPR_IIR_RX_8K_IN1 #lightgreen
+    OPR_AANC_UP_SAMPLE "IIR_RX_8K_IN1(0)" <-- EPR_IIR_RX_8K_IN1
+    object EPR_IIR_RX_16K_OUT1 #lightblue
+    EPR_IIR_RX_16K_OUT1 <-- "IIR_RX_16K_OUT1(0)" OPR_AANC_UP_SAMPLE
+@enduml

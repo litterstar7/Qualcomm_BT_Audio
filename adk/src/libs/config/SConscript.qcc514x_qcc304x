@@ -1,0 +1,9 @@
+import os
+
+Import('p_env')
+
+# Pull in the QCC512x/QCC302x build configuration
+if os.path.exists('SConscript.qcc512x_qcc302x'):
+    p_env.SConscript('SConscript.qcc512x_qcc302x', exports='p_env', must_exist=True)
+
+p_env.Append(CONFIG_FEATURES=['CONFIG_QCC514X_QCC304X', 'CONFIG_HANDOVER'])
